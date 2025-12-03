@@ -351,9 +351,16 @@ def main():
     print("Starting queueing simulation experiments...")
     print("=" * 60)
     
-    # Create output directory
+    # Determine output directory (can be overridden via env var or CLI)
     import os
-    os.makedirs('/mnt/user-data/outputs', exist_ok=True)
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Queueing simulation experiments")
+    parser.add_argument('--output-dir', default=os.environ.get('OUTPUT_DIR', 'outputs'),
+                        help='Directory to save output figures (default: ./outputs or $OUTPUT_DIR)')
+    args = parser.parse_args()
+    output_dir = args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
     
     # Experiment 1: Vary arrival rate
     print("\n1. Varying arrival rate (λ)...")
@@ -361,17 +368,17 @@ def main():
     
     fig1 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
                         'blocking_prob', 'Blocking Probability')
-    fig1.savefig('/mnt/user-data/outputs/fig1_blocking_vs_lambda.png', dpi=150)
+    fig1.savefig(os.path.join(output_dir, 'fig1_blocking_vs_lambda.png'), dpi=150)
     plt.close()
     
     fig2 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
                         'avg_queue_length', 'Average Queue Length')
-    fig2.savefig('/mnt/user-data/outputs/fig2_queue_vs_lambda.png', dpi=150)
+    fig2.savefig(os.path.join(output_dir, 'fig2_queue_vs_lambda.png'), dpi=150)
     plt.close()
     
     fig3 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig3.savefig('/mnt/user-data/outputs/fig3_sojourn_vs_lambda.png', dpi=150)
+    fig3.savefig(os.path.join(output_dir, 'fig3_sojourn_vs_lambda.png'), dpi=150)
     plt.close()
     
     # Experiment 2: Vary service rate
@@ -380,17 +387,17 @@ def main():
     
     fig4 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
                         'blocking_prob', 'Blocking Probability')
-    fig4.savefig('/mnt/user-data/outputs/fig4_blocking_vs_mu.png', dpi=150)
+    fig4.savefig(os.path.join(output_dir, 'fig4_blocking_vs_mu.png'), dpi=150)
     plt.close()
     
     fig5 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
                         'avg_queue_length', 'Average Queue Length')
-    fig5.savefig('/mnt/user-data/outputs/fig5_queue_vs_mu.png', dpi=150)
+    fig5.savefig(os.path.join(output_dir, 'fig5_queue_vs_mu.png'), dpi=150)
     plt.close()
     
     fig6 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig6.savefig('/mnt/user-data/outputs/fig6_sojourn_vs_mu.png', dpi=150)
+    fig6.savefig(os.path.join(output_dir, 'fig6_sojourn_vs_mu.png'), dpi=150)
     plt.close()
     
     # Experiment 3: Vary traffic load
@@ -399,21 +406,21 @@ def main():
     
     fig7 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
                         'blocking_prob', 'Blocking Probability')
-    fig7.savefig('/mnt/user-data/outputs/fig7_blocking_vs_rho.png', dpi=150)
+    fig7.savefig(os.path.join(output_dir, 'fig7_blocking_vs_rho.png'), dpi=150)
     plt.close()
     
     fig8 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
                         'avg_queue_length', 'Average Queue Length')
-    fig8.savefig('/mnt/user-data/outputs/fig8_queue_vs_rho.png', dpi=150)
+    fig8.savefig(os.path.join(output_dir, 'fig8_queue_vs_rho.png'), dpi=150)
     plt.close()
     
     fig9 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig9.savefig('/mnt/user-data/outputs/fig9_sojourn_vs_rho.png', dpi=150)
+    fig9.savefig(os.path.join(output_dir, 'fig9_sojourn_vs_rho.png'), dpi=150)
     plt.close()
     
     print("\n" + "=" * 60)
-    print("All simulations complete! Figures saved to outputs directory.")
+    print(f"All simulations complete! Figures saved to {output_dir}.")
     print("\nSensitivity Analysis Summary:")
     print("-" * 60)
     print("Based on the experiments, the key findings are:")

@@ -1,5 +1,7 @@
-COMP 5320/6320/6320-D1 - Design and Analysis of Computer Networks
+COMP 5320/6320 - Design and Analysis of Computer Networks
 COURSE PROJECT REPORT
+Brady Hauglie, Leo Hernandez
+
 Two-Queue System Performance Analysis
 
 ================================================================================
@@ -390,5 +392,3 @@ Parameter Ranges Tested:
 - Traffic load ρ: [0.1, 1.9] in 8 steps
 
 ================================================================================
-
-END OF REPORT

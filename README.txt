@@ -162,35 +162,6 @@ How to verify the simulation is working correctly:
    - Different seeds should give slightly different results
    - Averaging 10 runs should reduce variance
 
-COMMON ISSUES
--------------
-
-Issue: Simulation runs too slowly
-Solution: Reduce num_runs from 10 to 5, or reduce packets from 10,000 to 5,000
-
-Issue: Figures look noisy/jagged
-Solution: Increase num_runs or increase packets per run
-
-Issue: Theory doesn't match simulation
-Solution: Check that ρ calculation is correct (ρ = λ/(2μ) not λ/μ)
-
-Issue: Out of memory
-Solution: Reduce number of queue_length_samples stored (sample every N arrivals)
-
-PERFORMANCE TIPS
-----------------
-
-- Simulation is CPU-bound (not I/O bound)
-- Each run is independent (could parallelize with multiprocessing)
-- Event queue operations are O(log N), very efficient
-- Memory usage is minimal (~10MB per run)
-
-To speed up for large experiments:
-1. Use PyPy instead of CPython (2-3x faster)
-2. Profile with cProfile to find bottlenecks
-3. Consider Numba JIT compilation for hot loops
-4. Parallelize runs across CPU cores
-
 THEORY REFERENCE
 ----------------
 
@@ -215,16 +186,4 @@ Special case when ρ_q = 1:
 P_b = K/(K+1) = 10/11 ≈ 0.909
 E[N] = K/2 = 5
 
-CONTACT AND SUPPORT
--------------------
-
-If you need to modify this code or have questions:
-- The code is well-commented and modular
-- Each function has a docstring explaining its purpose
-- Key algorithms are in QueueingSimulator class methods
-- Statistical functions are separate and can be tested independently
-
-Good luck with your project!
-
 ================================================================================
-END OF README

@@ -70,7 +70,7 @@ The min-queue strategy doesn't have theoretical results because the queues are
 correlated (not independent anymore).
 
 
-Results
+Our Results
 
 Effect of Arrival Rate
 
@@ -211,8 +211,3 @@ service = -ln(U)/μ)
 
 Each simulation run processes about 20,000 events (10k packets + departures), 
 which takes about 0.1 seconds. Total runtime for all experiments is around 90 seconds.
-
-Verification:
-- Confirmed packets_offered = packets_admitted + packets_dropped
-- Verified queue lengths never exceed capacity
-- Checked that random strategy matches M/M/1/K formulas (within 3% error)

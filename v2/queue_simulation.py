@@ -234,7 +234,7 @@ def vary_arrival_rate(service_rate=1.0, num_points=10):
     theory_results = {'blocking_prob': [], 'avg_queue_length': [], 'avg_sojourn_time': []}
     
     for lambda_ in arrival_rates:
-        print(f"  λ = {lambda_:.2f}")
+        print(f"  lambda = {lambda_:.2f}")
         
         # Random strategy
         metrics = run_multiple_simulations(lambda_, service_rate, 'random')
@@ -262,7 +262,7 @@ def vary_service_rate(arrival_rate=2.0, num_points=10):
     theory_results = {'blocking_prob': [], 'avg_queue_length': [], 'avg_sojourn_time': []}
     
     for mu in service_rates:
-        print(f"  μ = {mu:.2f}")
+        print(f"  mu = {mu:.2f}")
         
         # Random strategy
         metrics = run_multiple_simulations(arrival_rate, mu, 'random')
@@ -282,10 +282,10 @@ def vary_service_rate(arrival_rate=2.0, num_points=10):
     return service_rates, random_results, min_results, theory_results
 
 def vary_traffic_load(num_points=10):
-    # Keep μ=1, vary λ to get different ρ values
+    # Keep mu=1, vary lambda to get different rho values
     mu = 1.0
     rho_values = np.linspace(0.1, 1.9, num_points)
-    arrival_rates = rho_values * 2 * mu  # λ = 2μρ
+    arrival_rates = rho_values * 2 * mu  # lambda = 2murho
     
     random_results = {'blocking_prob': [], 'avg_queue_length': [], 'avg_sojourn_time': []}
     min_results = {'blocking_prob': [], 'avg_queue_length': [], 'avg_sojourn_time': []}
@@ -293,7 +293,7 @@ def vary_traffic_load(num_points=10):
     
     for lambda_ in arrival_rates:
         rho = lambda_ / (2 * mu)
-        print(f"  ρ = {rho:.2f}")
+        print(f"  rho = {rho:.2f}")
         
         # Random strategy
         metrics = run_multiple_simulations(lambda_, mu, 'random')
@@ -333,66 +333,66 @@ def main():
     
     # Create output directory
     import os
-    os.makedirs('/mnt/user-data/outputs', exist_ok=True)
+    os.makedirs('outputs', exist_ok=True)
     
     # Experiment 1: Vary arrival rate
-    print("\n1. Varying arrival rate (λ)...")
+    print("\n1. Varying arrival rate (lambda)...")
     arrival_rates, random_res1, min_res1, theory_res1 = vary_arrival_rate(service_rate=1.0, num_points=8)
     
-    fig1 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
+    fig1 = plot_results(arrival_rates, 'Arrival Rate (lambda)', random_res1, min_res1, theory_res1,
                         'blocking_prob', 'Blocking Probability')
-    fig1.savefig('/mnt/user-data/outputs/fig1_blocking_vs_lambda.png', dpi=150)
+    fig1.savefig('outputs/fig1_blocking_vs_lambda.png', dpi=150)
     plt.close()
     
-    fig2 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
+    fig2 = plot_results(arrival_rates, 'Arrival Rate (lambda)', random_res1, min_res1, theory_res1,
                         'avg_queue_length', 'Average Queue Length')
-    fig2.savefig('/mnt/user-data/outputs/fig2_queue_vs_lambda.png', dpi=150)
+    fig2.savefig('outputs/fig2_queue_vs_lambda.png', dpi=150)
     plt.close()
     
-    fig3 = plot_results(arrival_rates, 'Arrival Rate (λ)', random_res1, min_res1, theory_res1,
+    fig3 = plot_results(arrival_rates, 'Arrival Rate (lambda)', random_res1, min_res1, theory_res1,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig3.savefig('/mnt/user-data/outputs/fig3_sojourn_vs_lambda.png', dpi=150)
+    fig3.savefig('outputs/fig3_sojourn_vs_lambda.png', dpi=150)
     plt.close()
     
     # Experiment 2: Vary service rate
-    print("\n2. Varying service rate (μ)...")
+    print("\n2. Varying service rate (mu)...")
     service_rates, random_res2, min_res2, theory_res2 = vary_service_rate(arrival_rate=2.0, num_points=8)
     
-    fig4 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
+    fig4 = plot_results(service_rates, 'Service Rate (mu)', random_res2, min_res2, theory_res2,
                         'blocking_prob', 'Blocking Probability')
-    fig4.savefig('/mnt/user-data/outputs/fig4_blocking_vs_mu.png', dpi=150)
+    fig4.savefig('outputs/fig4_blocking_vs_mu.png', dpi=150)
     plt.close()
     
-    fig5 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
+    fig5 = plot_results(service_rates, 'Service Rate (mu)', random_res2, min_res2, theory_res2,
                         'avg_queue_length', 'Average Queue Length')
-    fig5.savefig('/mnt/user-data/outputs/fig5_queue_vs_mu.png', dpi=150)
+    fig5.savefig('outputs/fig5_queue_vs_mu.png', dpi=150)
     plt.close()
     
-    fig6 = plot_results(service_rates, 'Service Rate (μ)', random_res2, min_res2, theory_res2,
+    fig6 = plot_results(service_rates, 'Service Rate (mu)', random_res2, min_res2, theory_res2,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig6.savefig('/mnt/user-data/outputs/fig6_sojourn_vs_mu.png', dpi=150)
+    fig6.savefig('outputs/fig6_sojourn_vs_mu.png', dpi=150)
     plt.close()
     
     # Experiment 3: Vary traffic load
-    print("\n3. Varying traffic load (ρ)...")
+    print("\n3. Varying traffic load (rho)...")
     rho_values, random_res3, min_res3, theory_res3 = vary_traffic_load(num_points=8)
     
-    fig7 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
+    fig7 = plot_results(rho_values, 'Traffic Load (rho)', random_res3, min_res3, theory_res3,
                         'blocking_prob', 'Blocking Probability')
-    fig7.savefig('/mnt/user-data/outputs/fig7_blocking_vs_rho.png', dpi=150)
+    fig7.savefig('outputs/fig7_blocking_vs_rho.png', dpi=150)
     plt.close()
     
-    fig8 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
+    fig8 = plot_results(rho_values, 'Traffic Load (rho)', random_res3, min_res3, theory_res3,
                         'avg_queue_length', 'Average Queue Length')
-    fig8.savefig('/mnt/user-data/outputs/fig8_queue_vs_rho.png', dpi=150)
+    fig8.savefig('outputs/fig8_queue_vs_rho.png', dpi=150)
     plt.close()
     
-    fig9 = plot_results(rho_values, 'Traffic Load (ρ)', random_res3, min_res3, theory_res3,
+    fig9 = plot_results(rho_values, 'Traffic Load (rho)', random_res3, min_res3, theory_res3,
                         'avg_sojourn_time', 'Average Sojourn Time')
-    fig9.savefig('/mnt/user-data/outputs/fig9_sojourn_vs_rho.png', dpi=150)
+    fig9.savefig('outputs/fig9_sojourn_vs_rho.png', dpi=150)
     plt.close()
     
-    print("\nDone! All figures saved to outputs directory.")
+    print("\nDone! All figures saved to ./outputs/")
 
 if __name__ == "__main__":
     main()

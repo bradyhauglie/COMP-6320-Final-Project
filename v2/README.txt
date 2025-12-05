@@ -3,7 +3,8 @@ Two-Queue Simulation
 Quick Start:
     python queue_simulation.py
 
-This will run all the experiments and generate the 9 figures. Takes about 90 seconds.
+This will run all the experiments and generate the 9 figures in the outputs/ folder. 
+Takes about 90 seconds.
 
 
 Files:
